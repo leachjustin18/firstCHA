@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<link rel="stylesheet" type='text/css' href="media/main.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Candal' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+    
+  $(document).ready(function() {
+    var labDisplay = {
+      $ph: $('#ph')
+      ,$paco: $('#paco')
+      ,$pao: $('#pao')
+      ,$hco: $('#hco')
+    }
+
+    var cwAnswers = {
+      cAnswer: "Correct, this is respiratory acidosis because: " + "<br/>" + "  - The pH and HCO3- are directly related (both moving in the same direction) " + "<br/>" + " - The pH and PCO2 are inversely related (as one goes up the other goes down)"
+      ,wAnswer : "Incorrect, this is actually respiratory acidosis. Why does this represent respiratory acidosis? "
+    }
+    
+    var selectedScenario = 0;
+    var scenarios = [
+      {
+        labResults: [7.39, 44, 39, 26]
+        ,correctAnswers: [1,1,1]
+        ,remediation: {
+          correct: cwAnswers.cAnswer
+          ,incorrect: cwAnswers.wAnswer
+        }
+      }
+      ,{
+        labResults: [7.56, 15, 180, 13]
+        ,correctAnswers: [2,1,3]
+        ,remediation: {
+           correct: cwAnswers.cAnswer
+          ,incorrect: cwAnswers.wAnswer
+        }
+      }
+      ,{
+        labResults: [7.21, 63, 109, 24.7]
+        ,correctAnswers: [1,1,2]
+        ,remediation: {
+           correct: cwAnswers.cAnswer
+          ,incorrect: cwAnswers.wAnswer
+        }
+      }
+      ,{
+        labResults: [7.44, 56, 54, 37]
+        ,correctAnswers: [2,2,1]
+        ,remediation: {
+           correct: cwAnswers.cAnswer
+          ,incorrect: cwAnswers.wAnswer
+        }
+      }
+    ]
+    
+    //Selectors used wthin the web page
+    $sel = {
+      container: $("#container")
+      ,answerSpace: $("#answerSpace")
+      ,selects: $("select")
+      ,titleNumber: $("#titleNumber")
+      ,questions: $('#q1, #q2, #q3')
+      ,questionBoxes: $('.ques1, .ques2, .ques3')
+      ,cwImage : $('.cwImage')
+      ,answerBox : $('#answerBox')
+      ,scenarioButton : $('.scenarioButton')
+    }
+
+    $sel.scenarioButton.click(function() { // Reset the scenario
+      selectedScenario = parseInt($(this).attr('number'));
+      labDisplay.$ph.find('span').eq(0).text(scenarios[selectedScenario].labResults[0]);
+      labDisplay.$paco.find('span').eq(0).text(scenarios[selectedScenario].labResults[1]);
+      labDisplay.$pao.find('span').eq(0).text(scenarios[selectedScenario].labResults[2]);
+      labDisplay.$hco.find('span').eq(0).text(scenarios[selectedScenario].labResults[3]);
+      $sel.questionBoxes.removeClass('correct wrong');
+      $sel.cwImage.removeClass('correctImage wrongImage')
+      $sel.selects.val('');
+      $sel.selects.attr('disabled', false);
+      $sel.answerSpace.empty();
+      $sel.titleNumber.text(selectedScenario + 1);
+      $sel.container.show();
+    });
+    
+    $sel.selects.change(function() {
+      // determine if all answers have been selected
+      if(($sel.questions.eq(0)[0].selectedIndex !== 0) && ($sel.questions.eq(1)[0].selectedIndex !== 0) && ($sel.questions.eq(2)[0].selectedIndex !== 0)) {
+       //Disable the dropdowns
+        $sel.selects.attr('disabled', true);
+        // loop through all questions
+        var correctAnswers = 0;
+        for(var a = 0; a < scenarios[selectedScenario].correctAnswers.length; a++) {
+          if ($sel.questions.eq(a)[0].selectedIndex === scenarios[selectedScenario].correctAnswers[a]) {
+            $sel.questionBoxes.eq(a).addClass('correct').removeClass("wrong");
+            $sel.cwImage.eq(a).addClass('correctImage').removeClass('wrongImage');
+            correctAnswers++;
+          } else {
+            $sel.questionBoxes.eq(a).addClass('wrong').removeClass("correct");
+            $sel.cwImage.eq(a).addClass('wrongImage').removeClass('correctImage');
+          }
+        }
+        // determine if all questions where answered correctly
+        if(correctAnswers == scenarios[selectedScenario].correctAnswers.length) {
+          $sel.answerBox.show();
+          $sel.answerSpace.html(scenarios[selectedScenario].remediation.correct);
+        }
+        else {
+          $sel.answerBox.show();
+          $sel.answerSpace.html(scenarios[selectedScenario].remediation.incorrect);
+        }
+      }
+    });
+});
+</script>
+</head>
+<body>
+  <div id ="wrapper">
+    <div id ="exampButtons">
+     <div><img src="media/Example-1.png" class="scenarioButton" number="0"/></div>
+     <div><img src="media/Example-2.png" class="scenarioButton" number="1"/></div>
+     <div><img src="media/Example-3.png" class="scenarioButton" number="2"/></div>
+     <div><img src="media/Example-4.png" class="scenarioButton" number="3"/></div>
+   </div>
+  <div id="container" class="container">
+    <div class="content">
+      <div id ="contentLeft">
+        <div class="title">Example <span id="titleNumber"></span></div>
+        <div class="box numberBox"><div class="boxContent" id="ph">ph = <span></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="paco">PaCO<sub>2</sub> = <span></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="pao">PaO<sub>2</sub> = <span></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="hco">HCO<sub>3</sub> = <span></span></div></div>
+      <!--end of contentLeft --> 
+      </div>
+      <div id="contentRight">
+        <div class="box contentBox ques1">
+          <span class="cwImage"></span>
+          <div class="boxContent">Is this acidosis or alkalosis?
+            
+            <select name="ques1" id="q1">
+              <option value="">Click to select...</option>
+              <option value="Acidosis">Acidosis</option>
+              <option value="Alkalosis">Alkalosis</option>
+            </select>
+          </div>
+        </div>
+        <div class="box contentBox ques2">
+          <span class="cwImage"></span>
+          <div class="boxContent">Is it respirator or metabolic?
+            <select name="ques2" id="q2">
+              <option value="">Click to select...</option>
+              <option value="Respiratory">Respiratory</option>
+              <option value="Metabolic">Metabolic</option>
+            </select>
+          </div>
+        </div>
+        <div class="box contentBox cBLast ques3">
+          <span class="cwImage"></span>
+          <div class="boxContent">Is it compensated, uncompensated or partially compensated?   
+            <select name="ques3" id="q3">
+              <option value="">Click to select...</option>
+              <option value="Compensated">Compensated</option>
+              <option value="Uncompensated">Uncompensated</option>
+              <option value="Partially Compensated">Partially Compensated</option>
+            </select>
+          </div>
+        </div> 
+        </div>
+        <!--end of content right-->
+      </div>
+     <!--end of content-->
+     <div id="answerBox">
+        <div id="answerSpace"></div>
+     </div>
+     <!--end of container-->
+    </div>
+   </div>
+</body>
+</html>
