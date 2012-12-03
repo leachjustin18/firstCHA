@@ -7,7 +7,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Candal' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
-    
   $(document).ready(function() {
     var labDisplay = {
       $ph: $('#ph')
@@ -15,12 +14,10 @@
       ,$pao: $('#pao')
       ,$hco: $('#hco')
     }
-
     var cwAnswers = {
-      cAnswer: "Correct, this is respiratory acidosis because: " + "<br/>" + "  - The pH and HCO3- are directly related (both moving in the same direction) " + "<br/>" + " - The pH and PCO2 are inversely related (as one goes up the other goes down)"
-      ,wAnswer : "Incorrect, this is actually respiratory acidosis. Why does this represent respiratory acidosis? "
+      cAnswer: "Correct, this is respiratory acidosis because the pH and HCO3- are directly related (both moving in the same direction) and the pH and PCO2 are inversely related (as one goes up the other goes down)."
+      ,wAnswer : "Incorrect, this is actually respiratory acidosis. Why does this represent respiratory acidosis?"
     }
-    
     var selectedScenario = 0;
     var scenarios = [
       {
@@ -56,7 +53,6 @@
         }
       }
     ]
-    
     //Selectors used wthin the web page
     $sel = {
       container: $("#container")
@@ -64,11 +60,16 @@
       ,selects: $("select")
       ,titleNumber: $("#titleNumber")
       ,questions: $('#q1, #q2, #q3')
-      ,questionBoxes: $('.ques1, .ques2, .ques3')
       ,cwImage : $('.cwImage')
       ,answerBox : $('#answerBox')
       ,scenarioButton : $('.scenarioButton')
     }
+    //Default example one 
+      labDisplay.$ph.find('span').eq(0).text(scenarios[selectedScenario].labResults[0]);
+      labDisplay.$paco.find('span').eq(0).text(scenarios[selectedScenario].labResults[1]);
+      labDisplay.$pao.find('span').eq(0).text(scenarios[selectedScenario].labResults[2]);
+      labDisplay.$hco.find('span').eq(0).text(scenarios[selectedScenario].labResults[3]);
+      $sel.titleNumber.text(selectedScenario + 1);
 
     $sel.scenarioButton.click(function() { // Reset the scenario
       selectedScenario = parseInt($(this).attr('number'));
@@ -76,7 +77,6 @@
       labDisplay.$paco.find('span').eq(0).text(scenarios[selectedScenario].labResults[1]);
       labDisplay.$pao.find('span').eq(0).text(scenarios[selectedScenario].labResults[2]);
       labDisplay.$hco.find('span').eq(0).text(scenarios[selectedScenario].labResults[3]);
-      $sel.questionBoxes.removeClass('correct wrong');
       $sel.cwImage.removeClass('correctImage wrongImage')
       $sel.selects.val('');
       $sel.selects.attr('disabled', false);
@@ -84,7 +84,6 @@
       $sel.titleNumber.text(selectedScenario + 1);
       $sel.container.show();
     });
-    
     $sel.selects.change(function() {
       // determine if all answers have been selected
       if(($sel.questions.eq(0)[0].selectedIndex !== 0) && ($sel.questions.eq(1)[0].selectedIndex !== 0) && ($sel.questions.eq(2)[0].selectedIndex !== 0)) {
@@ -94,21 +93,17 @@
         var correctAnswers = 0;
         for(var a = 0; a < scenarios[selectedScenario].correctAnswers.length; a++) {
           if ($sel.questions.eq(a)[0].selectedIndex === scenarios[selectedScenario].correctAnswers[a]) {
-            $sel.questionBoxes.eq(a).addClass('correct').removeClass("wrong");
             $sel.cwImage.eq(a).addClass('correctImage').removeClass('wrongImage');
             correctAnswers++;
           } else {
-            $sel.questionBoxes.eq(a).addClass('wrong').removeClass("correct");
             $sel.cwImage.eq(a).addClass('wrongImage').removeClass('correctImage');
           }
         }
         // determine if all questions where answered correctly
         if(correctAnswers == scenarios[selectedScenario].correctAnswers.length) {
-          $sel.answerBox.show();
           $sel.answerSpace.html(scenarios[selectedScenario].remediation.correct);
         }
         else {
-          $sel.answerBox.show();
           $sel.answerSpace.html(scenarios[selectedScenario].remediation.incorrect);
         }
       }
@@ -135,36 +130,38 @@
       <!--end of contentLeft --> 
       </div>
       <div id="contentRight">
-        <div class="box contentBox ques1">
-          <span class="cwImage"></span>
+        <div class="box contentBox">
+         
           <div class="boxContent">Is this acidosis or alkalosis?
-            
             <select name="ques1" id="q1">
               <option value="">Click to select...</option>
               <option value="Acidosis">Acidosis</option>
               <option value="Alkalosis">Alkalosis</option>
             </select>
+             <span class="cwImage"></span>
           </div>
         </div>
-        <div class="box contentBox ques2">
-          <span class="cwImage"></span>
+        <div class="box contentBox">
+          
           <div class="boxContent">Is it respirator or metabolic?
             <select name="ques2" id="q2">
               <option value="">Click to select...</option>
               <option value="Respiratory">Respiratory</option>
               <option value="Metabolic">Metabolic</option>
             </select>
+            <span class="cwImage"></span>
           </div>
         </div>
-        <div class="box contentBox cBLast ques3">
-          <span class="cwImage"></span>
-          <div class="boxContent">Is it compensated, uncompensated or partially compensated?   
+        <div class="box contentBox cBLast">
+          
+          <div class="boxContent">Is it compensated, uncompensated or partially&nbsp;compensated?   
             <select name="ques3" id="q3">
               <option value="">Click to select...</option>
               <option value="Compensated">Compensated</option>
               <option value="Uncompensated">Uncompensated</option>
               <option value="Partially Compensated">Partially Compensated</option>
             </select>
+            <span class="cwImage"></span>
           </div>
         </div> 
         </div>

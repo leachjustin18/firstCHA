@@ -1,0 +1,105 @@
+body {
+    font-family: arial;
+    font-size: 13px;
+    color:#000;
+    font-weight:bold;
+}
+#wrapper {width: 535px;}
+
+#exampButtons {
+ float: left;
+ width: 125px;
+ cursor: pointer;
+}
+
+.scenarioButton {padding-bottom: 7px;}
+
+.container {
+    float: left;
+    position:relative;
+    width:387px;
+    height:253px;
+    border:1px solid #ccc;
+    padding:5px;
+    -webkit-box-shadow:  1px 1px 3px 0px rgba(128, 128, 128, 1);
+    box-shadow:  1px 1px 3px 0px rgba(128, 128, 128, 1);
+}
+
+.content {
+    position:relative;
+    width: 387px;
+    height: 253px;
+    background: url('background.png');
+}
+
+.title {
+	font-size: 16px;
+	padding-bottom: 10px;
+	text-transform: uppercase;
+}
+
+.box {
+    margin-bottom: 10px;
+    border: 1px solid #999999;
+    background-color: #ffffff;
+    -webkit-box-shadow:  1px 1px 2px 0px rgba(128, 128, 128, 1);
+    box-shadow:  1px 1px 2px 0px rgba(128, 128, 128, 1);
+}
+
+.boxContent {
+	text-align: center;
+	padding-top: 8px;
+}
+
+#contentLeft {
+	width: 108px;
+	padding: 25px 0px 0px 30px;
+	float: left;
+}
+ 
+.numberBox {
+  	width:108px;
+    height:34px;
+}
+
+#contentRight {
+	width:196px;
+	padding: 25px 0px 0px 15px;
+	float: left;
+}
+
+.contentBox {
+  	width:196px;
+    height:54px;
+}
+
+.cBLast {
+    height: 87px;
+}
+
+#answerBox {
+	width: 100%;
+	height: 85px;
+	border: #ccc solid 2px;
+	margin-top: 20px;  
+}
+#answerSpace {
+padding: 10px; 
+font-weight: normal;
+}
+
+.correctImage {
+    background-image: url('correct.png');
+    width: 29px;
+    height: 28px;
+    position: absolute;
+    right: 15px;
+}
+
+.wrongImage {
+    background-image: url('incorrect.png');
+    width: 29px;
+    height: 28px;
+    position: absolute;
+    right:15px;
+}
