@@ -63,6 +63,7 @@
       ,cwImage : $('.cwImage')
       ,answerBox : $('#answerBox')
       ,scenarioButton : $('.scenarioButton')
+      ,amounts : $('.amounts')
     }
     //Default example one 
       labDisplay.$ph.find('span').eq(0).text(scenarios[selectedScenario].labResults[0]);
@@ -73,10 +74,10 @@
 
     $sel.scenarioButton.click(function() { // Reset the scenario
       selectedScenario = parseInt($(this).attr('number'));
-      labDisplay.$ph.find('span').eq(0).text(scenarios[selectedScenario].labResults[0]);
-      labDisplay.$paco.find('span').eq(0).text(scenarios[selectedScenario].labResults[1]);
-      labDisplay.$pao.find('span').eq(0).text(scenarios[selectedScenario].labResults[2]);
-      labDisplay.$hco.find('span').eq(0).text(scenarios[selectedScenario].labResults[3]);
+      labDisplay.$ph.$sel.amounts.text(scenarios[selectedScenario].labResults[0]);
+      labDisplay.$paco.$sel.amounts.text(scenarios[selectedScenario].labResults[1]);
+      labDisplay.$pao.$sel.amounts.text(scenarios[selectedScenario].labResults[2]);
+      labDisplay.$hco.$sel.amounts.text(scenarios[selectedScenario].labResults[3]);
       $sel.cwImage.removeClass('correctImage wrongImage')
       $sel.selects.val('');
       $sel.selects.attr('disabled', false);
@@ -123,10 +124,10 @@
     <div class="content">
       <div id ="contentLeft">
         <div class="title">Example <span id="titleNumber"></span></div>
-        <div class="box numberBox"><div class="boxContent" id="ph">ph = <span></span></div></div>
-        <div class="box numberBox"><div class="boxContent" id="paco">PaCO<sub>2</sub> = <span></span></div></div>
-        <div class="box numberBox"><div class="boxContent" id="pao">PaO<sub>2</sub> = <span></span></div></div>
-        <div class="box numberBox"><div class="boxContent" id="hco">HCO<sub>3</sub> = <span></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="ph">ph = <span class="amounts"></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="paco">PaCO<sub>2</sub> = <span "amounts"></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="pao">PaO<sub>2</sub> = <span "amounts"></span></div></div>
+        <div class="box numberBox"><div class="boxContent" id="hco">HCO<sub>3</sub> = <span "amounts"></span></div></div>
       <!--end of contentLeft --> 
       </div>
       <div id="contentRight">
