@@ -66,10 +66,10 @@
       ,amounts : $('.amounts')
     }
     //Default example one 
-      labDisplay.$ph.find('span').eq(0).text(scenarios[selectedScenario].labResults[0]);
-      labDisplay.$paco.find('span').eq(0).text(scenarios[selectedScenario].labResults[1]);
-      labDisplay.$pao.find('span').eq(0).text(scenarios[selectedScenario].labResults[2]);
-      labDisplay.$hco.find('span').eq(0).text(scenarios[selectedScenario].labResults[3]);
+      labDisplay.$ph.$sel.amounts.text(scenarios[selectedScenario].labResults[0]);
+      labDisplay.$paco.$sel.amounts.text(scenarios[selectedScenario].labResults[1]);
+      labDisplay.$pao.$sel.amounts.text(scenarios[selectedScenario].labResults[2]);
+      labDisplay.$hco.$sel.amounts.text(scenarios[selectedScenario].labResults[3]);
       $sel.titleNumber.text(selectedScenario + 1);
 
     $sel.scenarioButton.click(function() { // Reset the scenario
